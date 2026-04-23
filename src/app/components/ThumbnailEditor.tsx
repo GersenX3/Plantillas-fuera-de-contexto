@@ -26,7 +26,7 @@ export const ThumbnailEditor = forwardRef<HTMLDivElement, Props>(({ config }, re
     backgroundImage,
     bgBrightness, bgContrast, bgSaturation,
     logoImage, showLogo, logoPos, logoHeight, brandText,
-    mainText, fontFamily, fontSize, textColor, titlePos,
+    mainText, fontFamily, fontSize, textColor, titlePos, titleLineHeight, titleWordBreak, titleMaxWidth, titleWidth,
     rectColor, rectTilt, rectTexture, rectOpacity, rectWidth, rectPaddingV, rectPaddingH,
     episodeNumber, showEpisode, episodePos,
     episodeFontFamily, episodeShape, episodeBgColor, episodeTextColor, episodeBadgeSize,
@@ -140,10 +140,10 @@ export const ThumbnailEditor = forwardRef<HTMLDivElement, Props>(({ config }, re
       <div
         style={{
           position: 'absolute',
-          left: '50%',
+          left: `${titlePos.x}px`,
           top: `${titlePos.y}px`,
           zIndex: 10,
-          transform: `translateX(-50%) rotate(${rectTilt}deg)`,
+          transform: `rotate(${rectTilt}deg)`,
           width: '1700px', // wider than canvas so tilt never leaves gaps at edges
         }}
       >
@@ -174,12 +174,14 @@ export const ThumbnailEditor = forwardRef<HTMLDivElement, Props>(({ config }, re
               fontSize: `${fontSize}px`,
               color: textColor,
               textTransform: 'uppercase',
-              lineHeight: 1.0,
-              margin: 0,
+              lineHeight: titleLineHeight,
+              margin: '0 auto',
               letterSpacing: '-0.01em',
               textShadow: '2px 2px 6px rgba(0,0,0,0.25)',
-              wordBreak: 'break-word',
+              wordBreak: titleWordBreak,
               hyphens: 'auto',
+              maxWidth: `${titleMaxWidth}px`,
+              width: `${titleWidth}px`,
             }}
           >
             {mainText}

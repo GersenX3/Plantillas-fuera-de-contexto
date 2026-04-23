@@ -18,6 +18,10 @@ export interface ThumbnailConfig {
   fontSize: number;
   textColor: string;
   titlePos: { x: number; y: number };
+  titleLineHeight: number;
+  titleWordBreak: string;
+  titleMaxWidth: number;
+  titleWidth: number;
 
   // Rectangle
   rectColor: string;
@@ -61,6 +65,10 @@ export const defaultConfig: ThumbnailConfig = {
   fontSize: 108,
   textColor: '#FFFFFF',
   titlePos: { x: 640, y: 555 },
+  titleLineHeight: 1.0,
+  titleWordBreak: 'break-word',
+  titleMaxWidth: 520,
+  titleWidth: 520,
 
   rectColor: '#DC2626',
   rectTilt: -3,

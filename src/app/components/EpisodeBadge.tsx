@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 interface EpisodeBadgeProps {
   text: string;
@@ -140,9 +140,21 @@ export function EpisodeBadge({
 }: EpisodeBadgeProps) {
   const def = SHAPE_DEFS[shape] || SHAPE_DEFS.circle;
   const { vw, vh } = def;
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [textWidth, setTextWidth] = useState(0);
+
   const displayH = size;
-  const displayW = size * (vw / vh);
-  const fontSize = size * 0.38;
+  const baseWidth = size * (vw / vh);
+  const fontSize = size * 0.25;
+  const padding = size * 0.15;
+
+  useEffect(() => {
+    if (textRef.current) {
+      setTextWidth(textRef.current.offsetWidth);
+    }
+  }, [text, fontSize, fontFamily]);
+
+  const displayW = Math.max(baseWidth, textWidth + padding * 2);
 
   return (
     <div
@@ -169,6 +181,7 @@ export function EpisodeBadge({
 
       {/* Text overlay */}
       <span
+        ref={textRef}
         style={{
           position: 'relative',
           fontFamily,
@@ -179,9 +192,6 @@ export function EpisodeBadge({
           letterSpacing: '0.02em',
           lineHeight: 1,
           whiteSpace: 'nowrap',
-          maxWidth: `${displayW * 0.82}px`,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
           textShadow: '1px 1px 3px rgba(0,0,0,0.15)',
         }}
       >

@@ -330,6 +330,26 @@ export function ControlPanel({
 
           <Slider label="Tamaño de fuente" value={config.fontSize} min={40} max={200} onChange={v => set('fontSize', v)} />
 
+          <Slider label="Espacio entre líneas" value={config.titleLineHeight} min={0.7} max={2.5} step={0.05} unit="" onChange={v => set('titleLineHeight', v)} />
+
+          <div>
+            <Label>Tipo de salto de línea</Label>
+            <select
+              value={config.titleWordBreak}
+              onChange={(e) => set('titleWordBreak', e.target.value)}
+              className="w-full bg-gray-800 text-white px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-yellow-400 border border-gray-700"
+            >
+              <option value="break-word">Por palabra (break-word)</option>
+              <option value="break-all">Por carácter (break-all)</option>
+              <option value="keep-all">Mantener palabras (keep-all)</option>
+              <option value="normal">Normal</option>
+            </select>
+          </div>
+
+          <Slider label="Ancho máximo del título" value={config.titleMaxWidth} min={200} max={1200} onChange={v => set('titleMaxWidth', v)} />
+
+          <Slider label="Ancho del título" value={config.titleWidth} min={200} max={1200} onChange={v => set('titleWidth', v)} />
+
           <FontUploadBtn
             label="Tipografía personalizada del título"
             onChange={onTitleFontUpload}
@@ -430,7 +450,7 @@ export function ControlPanel({
               </div>
 
               {/* Badge size */}
-              <Slider label="Tamaño del badge" value={config.episodeBadgeSize} min={40} max={220} onChange={v => set('episodeBadgeSize', v)} />
+              <Slider label="Tamaño del badge" value={config.episodeBadgeSize} min={40} max={500} onChange={v => set('episodeBadgeSize', v)} />
 
               {/* Episode font — presets */}
               <div>
@@ -467,27 +487,28 @@ export function ControlPanel({
         <Section title="Posición de Elementos" icon={<Move size={14} />} open={openSections.posiciones} onToggle={() => toggleSection('posiciones')}>
           <div className="space-y-2">
             <p className="text-yellow-400 text-xs" style={{ fontWeight: 600 }}>📌 Título (centrado)</p>
-            <Slider label="Y — posición vertical" value={config.titlePos.y} min={400} max={720} onChange={v => setPos('titlePos', 'y', v)} />
+            <Slider label="X — posición horizontal" value={config.titlePos.x} min={-500} max={1500} onChange={v => setPos('titlePos', 'x', v)} />
+            <Slider label="Y — posición vertical" value={config.titlePos.y} min={-200} max={1000} onChange={v => setPos('titlePos', 'y', v)} />
           </div>
 
           <div className="space-y-2">
             <p className="text-yellow-400 text-xs" style={{ fontWeight: 600 }}>🏷 Logo / Branding</p>
-            <Slider label="X (horizontal)" value={config.logoPos.x} min={0} max={900} onChange={v => setPos('logoPos', 'x', v)} />
-            <Slider label="Y (vertical)" value={config.logoPos.y} min={0} max={500} onChange={v => setPos('logoPos', 'y', v)} />
+            <Slider label="X (horizontal)" value={config.logoPos.x} min={-500} max={1500} onChange={v => setPos('logoPos', 'x', v)} />
+            <Slider label="Y (vertical)" value={config.logoPos.y} min={-300} max={1000} onChange={v => setPos('logoPos', 'y', v)} />
             <Slider label="Tamaño del logo" value={config.logoHeight} min={30} max={200} onChange={v => set('logoHeight', v)} />
           </div>
 
           <div className="space-y-2">
             <p className="text-yellow-400 text-xs" style={{ fontWeight: 600 }}>🔢 Badge de episodio</p>
-            <Slider label="X (horizontal)" value={config.episodePos.x} min={0} max={1280} onChange={v => setPos('episodePos', 'x', v)} />
-            <Slider label="Y (vertical)" value={config.episodePos.y} min={0} max={600} onChange={v => setPos('episodePos', 'y', v)} />
+            <Slider label="X (horizontal)" value={config.episodePos.x} min={-500} max={2000} onChange={v => setPos('episodePos', 'x', v)} />
+            <Slider label="Y (vertical)" value={config.episodePos.y} min={-300} max={1000} onChange={v => setPos('episodePos', 'y', v)} />
           </div>
 
           {config.showHighlights && (
             <div className="space-y-2">
               <p className="text-yellow-400 text-xs" style={{ fontWeight: 600 }}>⭕ Círculo de resalte</p>
-              <Slider label="X (horizontal)" value={config.highlightPos.x} min={0} max={1100} onChange={v => setPos('highlightPos', 'x', v)} />
-              <Slider label="Y (vertical)" value={config.highlightPos.y} min={0} max={620} onChange={v => setPos('highlightPos', 'y', v)} />
+              <Slider label="X (horizontal)" value={config.highlightPos.x} min={-500} max={2000} onChange={v => setPos('highlightPos', 'x', v)} />
+              <Slider label="Y (vertical)" value={config.highlightPos.y} min={-300} max={1000} onChange={v => setPos('highlightPos', 'y', v)} />
               <Slider label="Tamaño" value={config.highlightSize} min={60} max={400} onChange={v => set('highlightSize', v)} />
             </div>
           )}
@@ -565,6 +586,10 @@ export function ControlPanel({
                   fontSize: 108,
                   textColor: '#FFFFFF',
                   titlePos: { x: 640, y: 555 },
+                  titleLineHeight: 1.0,
+                  titleWordBreak: 'break-word',
+                  titleMaxWidth: 520,
+                  titleWidth: 520,
                   rectColor: '#DC2626',
                   rectTilt: -3,
                   rectTexture: 'stripes',
